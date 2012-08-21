@@ -24,9 +24,12 @@ pt-PT:
       page_menus:
         form:
           menu_pages: Páginas no menu
-          pages_help: "Esta é a lista de todas as páginas para este menu. Selecione as páginas e carregue em '<' para removelas do menu."
+          pages_help: "Esta é a lista de todas as páginas para este menu. Selecione as páginas e carregue em '<' para as remover do menu."
           all_pages: "Páginas no menu"
           all_pages_help: "Esta é a lista de todas a páginas disponíveis que não estão no menu. Selecione as páginas que quer adicionar ao menu e carregue '>' para as adicionar."
+      page_positions:
+        records:
+          no_pages_yet: Ainda não existem páginas associadas
   activerecord:
     models:
       refinery/page_menu: Menu

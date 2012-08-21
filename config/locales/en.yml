@@ -27,6 +27,9 @@ en:
           pages_help: This is a list of all the pages for this menu. Select pages and click '<' to remove them from the menu.
           all_pages: Pages not in the menu
           all_pages_help: This is a list of all available pages that&apos;s not in the menu already. Select those pages you want in the menu and click '>' to add them.
+      page_positions:
+        records:
+          no_pages_yet: No pages yet
   activerecord:
     models:
       refinery/page_menu: Menu
