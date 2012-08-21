@@ -1,0 +1,36 @@
+en:
+  refinery:
+    plugins:
+      refinery_page_menus:
+        title: Page Menu
+        description: Gere os menus personalizados
+    admin:
+      pages:
+        form_advanced_options: 
+          show_in_menu_title: Mostra no menu principal
+          show_in_menu_description: Mostra a página no menu principal do site
+          show_in_menu_help: "Desmarque esta opção caso queira remover a página do menu principal do site. Pode ser útil caso queira ligar outra página a esta, mas não quer que esta apareça no menu do site."
+        actions:
+          pages:
+            title: Páginas
+            create_new: Adicionar uma nova página
+            manage: Gerir as páginas
+          menus:
+            title: Menus
+            main: Menu Principal
+            create_new: Adicionar novo menu
+            manage: Gerir os menus
+            edit: Editar este menu
+      page_menus:
+        form:
+          menu_pages: Páginas no menu
+          pages_help: "Esta é a lista de todas as páginas para este menu. Selecione as páginas e carregue em '<' para removelas do menu."
+          all_pages: "Páginas no menu"
+          all_pages_help: "Esta é a lista de todas a páginas disponíveis que não estão no menu. Selecione as páginas que quer adicionar ao menu e carregue '>' para as adicionar."
+  activerecord:
+    models:
+      refinery/page_menu: Menu
+    attributes:
+      refinery/page_menu:
+        title: Título
+        pages: Páginas
