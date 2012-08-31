@@ -6,8 +6,8 @@
 		  <%= refinery_help_tag t('all_pages_help', :scope => 'refinery.admin.page_menus.form') %>
 		</span>
 		<%= select_tag :all_pages, options_for_select(
-			(Refinery::Page.order('lft ASC') - Refinery::Page.in_menu).map{ 
-				|p| [p.title, p.id, {'data-lft'=>p.lft}] 
+			(Refinery::Page.order('lft ASC') - @page_menu.positions.map{|p| p.page}).map{ |p| 
+				[p.title.present? ? p.title : p.translations.detect {|t| t.title.present?}.title, p.title, p.id, {'data-lft'=>p.lft}] 
 			}
 		), { :allow_blank => true, :size => 20, :multiple => true, :class => "select_from" } %>
 		
@@ -24,7 +24,7 @@
 		  <%= refinery_help_tag t('pages_help', :scope => 'refinery.admin.page_menus.form') %>
 		</span>
 		<%= f.select :pages, options_for_select(
-			Refinery::Page.in_menu.order('lft ASC').map{ 
+			@page_menu.positions.order('lft ASC').map{|p| p.page}.map{ 
 				|p| [p.title, p.id, {'data-lft'=>p.lft}] 
 			}
 		), {}, { :allow_blank => true, :size => 20, :multiple => true, :class => "select_to" } %>
