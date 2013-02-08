@@ -1,6 +1,6 @@
 Refinery::Core::Engine.routes.draw do
 
-  namespace :admin, :path => 'refinery' do
+  namespace :admin, :path => 'admin' do
     resources :page_menus, :only => [:edit, :update] do
       resources :page_positions, :only => :index do
         post :update_positions, :on => :collection
