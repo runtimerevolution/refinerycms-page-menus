@@ -1,16 +1,30 @@
-<% if @page_menu.nil? %>
-<div class='select'>	
+<%
+if @page_menu.nil?
+	all_pages_collection =  (Refinery::Page.order('lft ASC') - Refinery::Page.in_menu).collect {
+    |p| [p.title, p.id, {'data-lft'=>p.lft}] unless p.title.nil?
+  }.compact
+	current_pages_collection =  Refinery::Page.in_menu.order('lft ASC').map {
+		|p| [p.title, p.id, {'data-lft'=>p.lft}]
+	}
+else
+	all_pages_collection = (Refinery::Page.order('lft ASC') - @page_menu.positions.map{|p| p.page}).map{ |p|
+		[p.title.present? ? p.title : p.translations.detect {|t| t.title.present?}.title, p.title, p.id, {'data-lft'=>p.lft}]
+	}
+	current_pages_collection = @page_menu.positions.order('lft ASC').map{|p| p.page}.map{
+		|p| [p.title, p.id, {'data-lft'=>p.lft}]
+	}
+end
+-%>
+
+<div class='select'>
 
 	<div class="hemisquare">
 		<span class='label_with_help'>
 			<%= label_tag :all_pages, t('all_pages', :scope => 'refinery.admin.page_menus.form') %>
 		  <%= refinery_help_tag t('all_pages_help', :scope => 'refinery.admin.page_menus.form') %>
 		</span>
-		<%= select_tag :all_pages, options_for_select(
-			(Refinery::Page.order('lft ASC') - Refinery::Page.in_menu).collect { 
-				|p| [p.title, p.id, {'data-lft'=>p.lft}] unless p.title.nil?
-			}.compact
-		), { :allow_blank => true, :size => 20, :multiple => true, :class => "select_from" } %>
+		<%= select_tag :all_pages, options_for_select(all_pages_collection),
+		{ :allow_blank => true, :size => 20, :multiple => true, :class => "select_from" } %>
 
 	</div>
 
@@ -24,49 +38,11 @@
 			<%= f.label :pages, t('menu_pages', :scope => 'refinery.admin.page_menus.form') %>
 		  <%= refinery_help_tag t('pages_help', :scope => 'refinery.admin.page_menus.form') %>
 		</span>
-		<%= f.select :pages, options_for_select(
-			Refinery::Page.in_menu.order('lft ASC').map{ 
-				|p| [p.title, p.id, {'data-lft'=>p.lft}] 
-			}
-		), {}, { :allow_blank => true, :size => 20, :multiple => true, :class => "select_to" } %>
+		<%= f.select :pages, options_for_select(current_pages_collection),
+		{}, { :allow_blank => true, :size => 20, :multiple => true, :class => "select_to" } %>
 	</div>
 
 </div>
-<% else %>
-<div class='select'>	
-
-	<div class="hemisquare">
-		<span class='label_with_help'>
-			<%= label_tag :all_pages, t('all_pages', :scope => 'refinery.admin.page_menus.form') %>
-		  <%= refinery_help_tag t('all_pages_help', :scope => 'refinery.admin.page_menus.form') %>
-		</span>
-		<%= select_tag :all_pages, options_for_select(
-			(Refinery::Page.order('lft ASC') - @page_menu.positions.map{|p| p.page}).map{ |p| 
-				[p.title.present? ? p.title : p.translations.detect {|t| t.title.present?}.title, p.title, p.id, {'data-lft'=>p.lft}] 
-			}
-		), { :allow_blank => true, :size => 20, :multiple => true, :class => "select_from" } %>
-
-	</div>
-
-	<div class='select_buttons'>
-		<%= button_tag ">", :type => 'button', :onclick => "moveSelectedPage('.select_from','.select_to')", :class => 'select_add' %>
-		<%= button_tag "<", :type => 'button', :onclick => "moveSelectedPage('.select_to','.select_from')", :class => 'select_remove' %>
-	</div>
-
-	<div class="hemisquare right_side">
-		<span class='label_with_help'>
-			<%= f.label :pages, t('menu_pages', :scope => 'refinery.admin.page_menus.form') %>
-		  <%= refinery_help_tag t('pages_help', :scope => 'refinery.admin.page_menus.form') %>
-		</span>
-		<%= f.select :pages, options_for_select(
-			@page_menu.positions.order('lft ASC').map{|p| p.page}.map{ 
-				|p| [p.title, p.id, {'data-lft'=>p.lft}] 
-			}
-		), {}, { :allow_blank => true, :size => 20, :multiple => true, :class => "select_to" } %>
-	</div>
-
-</div>
-<% end %>
 
 <% content_for :javascripts, javascript_include_tag('refinery/select_box') %>
 <% content_for :stylesheets, stylesheet_link_tag('refinery/select_form') %>
