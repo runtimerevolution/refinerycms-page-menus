@@ -57,6 +57,10 @@ rake refinery:override view=refinery/_header
 	          }	          	          
 ```
 
+## Reason of Fork
+- Integrate Refinery-page-menus with Portuguese Language
+- Bugfix on Main Menu Updates
+
 ## Contributing
 
 1. Fork it
