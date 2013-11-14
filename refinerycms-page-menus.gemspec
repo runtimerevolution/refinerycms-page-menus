@@ -7,7 +7,7 @@
 Gem::Specification.new do |s|
   s.platform          = Gem::Platform::RUBY
   s.name              = %q{refinerycms-page-menus}
-  s.version           = '2.0.3.dev'
+  s.version           = '2.0.6.dev'
   s.summary           = %q{Pages Menus extension for Refinery CMS}
   s.description       = %q{Add custom menus to pages}
   s.date              = '2013-11-13'
