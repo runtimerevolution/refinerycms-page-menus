@@ -5,6 +5,7 @@ module Refinery
       def has_and_belongs_to_page_menus
         
         before_filter :find_all_menus, :only => [:index, :list]
+        before_filter :set_return_url, :only => [:list]
         
         module_eval do
           
@@ -34,6 +35,11 @@ module Refinery
             @page_menus = Refinery::PageMenu.order('title ASC')
           end
           
+          def set_return_url
+            # stores the current location so we can return to this page after edit
+            store_location
+          end
+
         end
         
       end
